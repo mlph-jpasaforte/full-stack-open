@@ -1,0 +1,29 @@
+{
+  "notes": [
+    {
+      "id": 1,
+      "text": "James",
+      "important": false
+    },
+    {
+      "id": 2,
+      "text": "Patrick",
+      "important": false
+    },
+    {
+      "id": 3,
+      "text": "Ryan",
+      "important": false
+    },
+    {
+      "id": 4,
+      "text": "Rick",
+      "important": true
+    },
+    {
+      "id": 5,
+      "text": "Vincent",
+      "important": true
+    }
+  ]
+}
