@@ -12,15 +12,21 @@ const Anecdote = ({ anecdote, handleClick }) => (
 )
 
 const AnecdoteList = () => {
-  const dispatch = useDispatch()
-  const anecdotes = useSelector((state) => state.anecdotes)
-
   const sortAnecdotes = (anecdotes) =>
     anecdotes.sort((first, second) => second.votes - first.votes)
 
+  const dispatch = useDispatch()
+  const anecdotes = useSelector(({ anecdotes, searchQuery }) =>
+    sortAnecdotes(
+      !searchQuery
+        ? anecdotes
+        : anecdotes.filter((anecdote) => anecdote.text.includes(searchQuery))
+    )
+  )
+
   return (
     <>
-      {sortAnecdotes([...anecdotes]).map((anecdote) => (
+      {anecdotes.map((anecdote) => (
         <Anecdote
           key={anecdote.id}
           anecdote={anecdote}
