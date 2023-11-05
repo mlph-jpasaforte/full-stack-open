@@ -1,9 +1,7 @@
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { voteAnecdote } from '../reducers/anecdotesReducer'
-import {
-  flashNotification,
-  hideNotification,
-} from '../reducers/notificationReducer'
+import { fetchAnecdotes, voteAnecdote } from '../reducers/anecdotesReducer'
+import { showNotification } from '../reducers/notificationReducer'
 import sortAnecdotes from '../utils/sortAnecdotes'
 
 const Anecdote = ({ anecdote, handleClick }) => (
@@ -18,23 +16,21 @@ const Anecdote = ({ anecdote, handleClick }) => (
 
 const AnecdoteList = () => {
   const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(fetchAnecdotes())
+  }, [])
+
   const anecdotes = useSelector(({ anecdotes, search }) =>
-    !search.searchQuery
+    !search
       ? anecdotes
-      : anecdotes.filter((anecdote) =>
-          anecdote.text.includes(search.searchQuery)
-        )
+      : anecdotes.filter((anecdote) => anecdote.text.includes(search))
   )
 
   const sortedAnecdotes = sortAnecdotes([...anecdotes])
 
-  const handleVoteAnecdote = ({ id, text }) => {
-    dispatch(voteAnecdote({ id }))
-    dispatch(flashNotification({ text: `you voted "${text}"` }))
-
-    setTimeout(() => {
-      dispatch(hideNotification())
-    }, 5000)
+  const handleVoteAnecdote = (anecdote) => {
+    dispatch(voteAnecdote(anecdote))
+    dispatch(showNotification(`you voted "${anecdote.text}"`, 5))
   }
 
   return (

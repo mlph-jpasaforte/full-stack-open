@@ -5,12 +5,12 @@ import Notification from './components/Notification'
 import Search from './components/Search'
 
 const App = () => {
-  const text = useSelector(({ notification }) => notification.text)
+  const notification = useSelector(({ notification }) => notification)
 
   return (
     <div>
       <h2>Anecdotes</h2>
-      {text ? <Notification text={text} /> : <Search />}
+      {notification ? <Notification notification={notification} /> : <Search />}
       <AnecdoteList />
       <AnecdoteForm />
     </div>
