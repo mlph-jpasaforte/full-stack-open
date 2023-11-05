@@ -16,6 +16,7 @@ const Anecdote = ({ anecdote, handleClick }) => (
 
 const AnecdoteList = () => {
   const dispatch = useDispatch()
+
   useEffect(() => {
     dispatch(fetchAnecdotes())
   }, [])
