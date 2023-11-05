@@ -5,7 +5,7 @@ const Search = () => {
   const dispatch = useDispatch()
 
   const handleChange = (event) => {
-    dispatch(changeSearchQuery(event.target.value))
+    dispatch(changeSearchQuery({ searchQuery: event.target.value }))
   }
 
   const style = {
